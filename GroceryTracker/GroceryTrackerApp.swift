@@ -12,7 +12,8 @@ struct GroceryTrackerApp: App {
     var body: some Scene {
         WindowGroup {
 //            ContentView()
-            HomeContentView()
+            FloatingTabBarView()
+                .ignoresSafeArea()
         }
     }
 }
