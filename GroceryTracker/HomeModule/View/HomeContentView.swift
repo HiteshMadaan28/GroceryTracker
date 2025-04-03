@@ -29,7 +29,7 @@ struct HomeContentView: View {
                     
                     TotalFamilyMembersBannerView()
                         .padding(.top,20)
-                        .padding(.bottom,100)
+                        .padding(.bottom,130)
                     
                 }
             }

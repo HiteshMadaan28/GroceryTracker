@@ -7,36 +7,6 @@
 
 
 import SwiftUI
-import UIKit
-
-class CustomTabBarController: UITabBarController {
-    let customTabBarHeight: CGFloat = 60 // Set desired height
-    let horizontalPadding: CGFloat = 16  // Padding on both sides
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        // Calculate dynamic width based on device width with padding
-        let customTabBarWidth = view.frame.width - (horizontalPadding * 2)
-        
-        // Adjust Tab Bar Frame
-        var tabFrame = tabBar.frame
-        tabFrame.size.height = customTabBarHeight
-        tabFrame.size.width = customTabBarWidth
-        
-        // Center horizontally
-        tabFrame.origin.x = horizontalPadding
-        
-        // Lift the tab bar up (considering Safe Area insets)
-        if let window = UIApplication.shared.windows.first {
-            let bottomPadding = window.safeAreaInsets.bottom
-            tabFrame.origin.y = view.frame.height - (customTabBarHeight + bottomPadding + 10) // 10 for floating effect
-        }
-        
-        tabBar.frame = tabFrame
-    }
-}
-
 
 struct FloatingTabBarController: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> UITabBarController {
@@ -72,7 +42,7 @@ struct FloatingTabBarController: UIViewControllerRepresentable {
         let appearance = UITabBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.backgroundEffect = UIBlurEffect(style: .systemUltraThinMaterial) // Blur effect
-        appearance.backgroundColor = UIColor.black.withAlphaComponent(0.8)
+        appearance.backgroundColor = UIColor.black
         appearance.shadowColor = UIColor.clear // Remove default shadow
 
         tabBarController.tabBar.standardAppearance = appearance
@@ -100,57 +70,3 @@ struct FloatingTabBarController: UIViewControllerRepresentable {
 
 
 
-// MARK: - Floating Tab Bar View with Floating Button
-struct FloatingTabBarView: View {
-    var body: some View {
-        ZStack {
-            FloatingTabBarController()
-                .edgesIgnoringSafeArea(.all)
-        }
-        .overlay{
-            VStack {
-                Spacer()
-                HStack {
-                    Spacer()
-                    FloatingButton(action: {
-                        print("Floating Button Tapped!")
-                    })
-                    Spacer()
-                }
-                .padding(.bottom, 10) // Adjust position
-            }
-        }
-    }
-}
-
-// MARK: - Floating Action Button
-struct FloatingButton: View {
-    var action: () -> Void
-
-    var body: some View {
-        Button(action: action) {
-            Image(systemName: "qrcode.viewfinder")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 40, height: 40)
-                .padding()
-                .background(Color.green)
-                .foregroundColor(.white)
-                .clipShape(Circle())
-                .shadow(radius: 10)
-        }
-        .offset(y: -60) // Position above tab bar
-    }
-}
-
-
-struct ShowView: View {
-    var body: some View {
-        FloatingTabBarView()
-            .ignoresSafeArea()
-    }
-}
-
-#Preview {
-    ShowView()
-}

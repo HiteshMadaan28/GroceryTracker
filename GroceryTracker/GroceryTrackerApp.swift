@@ -11,9 +11,10 @@ import SwiftUI
 struct GroceryTrackerApp: App {
     var body: some Scene {
         WindowGroup {
-//            ContentView()
-            FloatingTabBarView()
-                .ignoresSafeArea()
+            NavigationStack{
+                FloatingTabBarView()
+                    .ignoresSafeArea()
+            }
         }
     }
 }

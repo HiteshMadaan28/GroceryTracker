@@ -47,7 +47,7 @@ struct GroceryBudgetBannerView: View {
                     .overlay {
                         Image(systemName: "chevron.right")
                             .resizable()
-                            .frame(width: 12,height: 12)
+                            .frame(width: 6,height: 12)
                             .foregroundStyle(Color.white)
                     }
                     .padding(.trailing,16)
